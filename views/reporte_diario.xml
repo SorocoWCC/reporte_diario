@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!--Action para Cierre de Caja-->
+        <record id="reporte_diario_action" model="ir.actions.act_window">
+            <field name="name">Reporte Diario</field>
+            <field name="res_model">reporte_diario</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Presione aquí para crear un reporte</p>
+            </field>
+        </record>
+
+
+
+        <!-- Vista Formulario Cierre de Caja-->
+        <record id="reporte_diario_form_view" model="ir.ui.view">
+            <field name="name">Reporte Diario</field>
+            <field name="view_type">form</field>
+            <field name="model">reporte_diario</field>
+            <field name="arch" type="xml">
+                <form string="Reporte" version="7.0">
+                    <header>
+                         <button  name="action_crear_reporte" string="Abrir Caja" type="object"/>           
+                    </header>
+                    <sheet string="Reporte de Compras">
+                        <h1 class="mt0">
+                            <div>
+                                <field class="oe_inline" name="name"/>
+                            </div>
+                        </h1>
+                        <group>
+                            <group>
+
+                            </group>
+                            <group>
+                  
+                            </group>
+                            <group string="Inversion">
+  
+                            </group>
+                            <group string="Ganancia">
+ 
+                            </group>
+                        </group>
+
+                        <notebook>
+                              <page string="Retorno de Dinero">
+                                <field colspan="4" name="resumen_producto_ids" nolabel="1" widget="one2many_list">
+                                    <tree editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="cantidad"/>
+                                        <field name="precio_compra"/>
+                                        <field name="precio_venta"/>
+                                        <field name="inversion" sum="True"/>
+                                        <field name="ganancia" sum="True"/>
+
+                                    </tree>
+                                </field>
+                            </page>
+
+                        </notebook>   
+
+                    </sheet>
+                    
+                    <div class="oe_chatter">
+                        <field groups="base.group_user" name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+
+
+  
+        <!-- Top menu item -->
+        <menuitem id="menu_root_reporte_diario" name="Reporte Diario" sequence="30" web_icon="reporte_diario,static/icon.png"/>
+        <!--Menus-->
+        <menuitem id="reporte_diario" name="Reporte Diario"/>
+        <menuitem id="reporte_diario_menu" name="Reportes" parent="menu_root_reporte_diario"/>
+        <menuitem action="reporte_diario_action" id="reporte_libro_menu" name="Reportes" parent="reporte_diario_menu"/>
+
+    </data>
+</odoo>
