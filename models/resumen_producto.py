@@ -20,6 +20,6 @@ class resumen_producto(models.Model):
     product_id = fields.Many2one(comodel_name='product.product', string='Producto')
     cantidad = fields.Float('Cantidad')
     precio_compra = fields.Float('Precio Compra')
-    precio_venta = fields.Float('Previo Venta')
+    precio_venta = fields.Float('Precio Venta')
     inversion = fields.Float('Inversión')    
     ganancia = fields.Float('Ganacia')

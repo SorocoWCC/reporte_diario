@@ -12,8 +12,6 @@
             </field>
         </record>
 
-
-
         <!-- Vista Formulario Cierre de Caja-->
         <record id="reporte_diario_form_view" model="ir.ui.view">
             <field name="name">Reporte Diario</field>
@@ -22,7 +20,7 @@
             <field name="arch" type="xml">
                 <form string="Reporte" version="7.0">
                     <header>
-                         <button  name="action_crear_reporte" string="Abrir Caja" type="object"/>           
+                         <field name="state" widget="statusbar"/>        
                     </header>
                     <sheet string="Reporte de Compras">
                         <h1 class="mt0">
@@ -37,10 +35,10 @@
                             <group>
                   
                             </group>
-                            <group string="Inversion">
+                            <group >
   
                             </group>
-                            <group string="Ganancia">
+                            <group >
  
                             </group>
                         </group>
@@ -55,7 +53,6 @@
                                         <field name="precio_venta"/>
                                         <field name="inversion" sum="True"/>
                                         <field name="ganancia" sum="True"/>
-
                                     </tree>
                                 </field>
                             </page>
@@ -74,7 +71,18 @@
         </record>
 
 
-
+        <!--Tree View Reporte Diario-->
+        <record id="cierre_tree_view" model="ir.ui.view">
+            <field name="name">reporte_diario.tree.view</field>
+            <field name="view_type">tree</field>
+            <field name="model">reporte_diario</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="state=='en_proceso'" string="Reporte Diario" default_order='name desc'>
+                    <field name="name"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
   
         <!-- Top menu item -->
         <menuitem id="menu_root_reporte_diario" name="Reporte Diario" sequence="30" web_icon="reporte_diario,static/icon.png"/>

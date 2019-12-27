@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-from . import reporte_diario, resumen_producto, product
+from . import reporte_diario, resumen_producto, product, purchase_order
