@@ -16,7 +16,7 @@ class reporte_diario(models.Model):
 
     @api.model
     def _get_name(self):
-        return str(fields.Date.today())
+        return str(datetime.now(timezone('America/Costa_Rica')).strftime("%Y-%m-%d"))
 
     _inherit = 'mail.thread'
     _name = 'reporte_diario'
@@ -29,6 +29,13 @@ class reporte_diario(models.Model):
     @api.multi
     def action_crear_reporte(self):
         if not self.env['reporte_diario'].search([('name', '=', str(fields.Date.today()) )]) :
+
+            # Cerrar reportes anteriores
+            reporte_anterior = self.env['reporte_diario'].search([('state', '=', 'en_proceso' )])
+            if reporte_anterior :
+                reporte_anterior.state  = 'cerrado'
+
+
             reporte_diario = self.env['reporte_diario'].create({'name':str(fields.Date.today())})
 
             for producto in self.env['product.template'].search([('incluir_reporte', '=', True )]) :
@@ -73,9 +80,6 @@ class reporte_diario(models.Model):
             resumen_producto.inversion = temp_dict["inversion"]
             resumen_producto.ganancia = temp_dict["ganancia"]
 
-        # Cierre reporte diario si ya paso la fecha
-        if fields.Date.today() > reporte_diario.name:
-            reporte_diario.state = "cerrado"
                
     # Crear Cronjobs
     @api.model
