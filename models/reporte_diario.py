@@ -23,7 +23,7 @@ class reporte_diario(models.Model):
 
     name = fields.Date(string='Fecha', default=_get_name, copy=False, readonly=True)
     resumen_producto_ids = fields.One2many(comodel_name='resumen_producto', inverse_name='reporte_id', string="Resumen Productos")
-    state = fields.Selection ([('en_proceso','En proceso'), ('cerrado','Cerrado')], string='state', default='en_proceso', readonly=True)
+    state = fields.Selection ([('en_proceso','En proceso'), ('cerrado','Cerrado')], string='Estado', default='en_proceso', readonly=True)
 
     # Crea el reporte del dia
     @api.multi
