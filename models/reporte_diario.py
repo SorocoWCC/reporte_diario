@@ -28,7 +28,7 @@ class reporte_diario(models.Model):
     # Crea el reporte del dia
     @api.multi
     def action_crear_reporte(self):
-        if not self.env['reporte_diario'].search([('name', '=', str(fields.Date.today()) )]) :
+        if not self.env['reporte_diario'].search([('name', '=', str(datetime.now(timezone('America/Costa_Rica')).strftime("%Y-%m-%d")) )]) :
 
             # Cerrar reportes anteriores
             reporte_anterior = self.env['reporte_diario'].search([('state', '=', 'en_proceso' )])
@@ -36,7 +36,7 @@ class reporte_diario(models.Model):
                 reporte_anterior.state  = 'cerrado'
 
 
-            reporte_diario = self.env['reporte_diario'].create({'name':str(fields.Date.today())})
+            reporte_diario = self.env['reporte_diario'].create({'name':str(datetime.now(timezone('America/Costa_Rica')).strftime("%Y-%m-%d"))})
 
             for producto in self.env['product.template'].search([('incluir_reporte', '=', True )]) :
                 reporte_diario.resumen_producto_ids.create({'product_id': producto.id, 'reporte_id': reporte_diario.id, 'precio_venta': producto.precio_venta_reporte}) 
