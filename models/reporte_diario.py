@@ -65,7 +65,8 @@ class reporte_diario(models.Model):
                     temp_dict["inversion"] = temp_dict["inversion"] + linea_compra.price_subtotal
                     print("La inversion es:" + str(temp_dict["inversion"]))
                     print("La cantidad es:" + str(temp_dict["cantidad"]))
-                    temp_dict["precio_compra"] = temp_dict["inversion"] / temp_dict["cantidad"]
+                    if temp_dict["cantidad"] > 0 :
+                        temp_dict["precio_compra"] = temp_dict["inversion"] / temp_dict["cantidad"]
                     temp_dict["ganancia"] = (temp_dict["cantidad"] * temp_dict["precio_venta"] - temp_dict["inversion"] )
 
                     resumen_productos_dict[str(linea_compra.product_id.id)] = temp_dict
